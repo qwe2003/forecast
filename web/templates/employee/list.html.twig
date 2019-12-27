@@ -1,0 +1,27 @@
+{# templates/employee/list.html.twig #}
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="row row-cols-1">
+    <div class="col">
+        <h1>Adminstration Employees</h1>
+        <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+                <tr>
+                <th scope="row">{{ employee.id|e }}</th>
+                <td>{{ employee.firstname|e }}</td>
+                <td>{{ employee.lastname|e }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

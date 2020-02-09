@@ -17,18 +17,22 @@ class WorkingHours
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=28)
      */
-    private $hours;
+    private $month;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\WorkingDay")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=28)
      */
     private $day;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Employee", inversedBy="workingHours")
+     * @ORM\Column(type="float")
+     */
+    private $hours;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Employee")
      * @ORM\JoinColumn(nullable=false)
      */
     private $employee;
@@ -38,26 +42,38 @@ class WorkingHours
         return $this->id;
     }
 
-    public function getHours(): ?int
+    public function getMonth(): ?string
     {
-        return $this->hours;
+        return $this->month;
     }
 
-    public function setHours(int $hours): self
+    public function setMonth(string $month): self
     {
-        $this->hours = $hours;
+        $this->month = $month;
 
         return $this;
     }
 
-    public function getDay(): ?WorkingDay
+    public function getDay(): ?string
     {
         return $this->day;
     }
 
-    public function setDay(?WorkingDay $day): self
+    public function setDay(string $day): self
     {
         $this->day = $day;
+
+        return $this;
+    }
+
+    public function getHours(): ?float
+    {
+        return $this->hours;
+    }
+
+    public function setHours(float $hours): self
+    {
+        $this->hours = $hours;
 
         return $this;
     }

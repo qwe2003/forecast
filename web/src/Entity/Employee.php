@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,79 +19,56 @@ class Employee
     /**
      * @ORM\Column(type="string", length=28)
      */
-    private $firstname;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=28, nullable=true)
+     * @ORM\Column(type="string", length=28)
      */
-    private $lastname;
+    private $lastName;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\WorkingHours", mappedBy="employee", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Position")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $workingHours;
-
-    public function __construct()
-    {
-        $this->workingHours = new ArrayCollection();
-    }
+    private $position;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstname(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstName(string $firstName): self
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getLastName(): ?string
     {
-        return $this->lastname;
+        return $this->lastName;
     }
 
-    public function setLastname(?string $lastname): self
+    public function setLastName(string $lastName): self
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
-    /**
-     * @return Collection|WorkingHours[]
-     */
-    public function getWorkingHours(): Collection
+    public function getPosition(): ?Position
     {
-        return $this->workingHours;
+        return $this->position;
     }
 
-    public function addWorkingHour(WorkingHours $workingHour): self
+    public function setPosition(?Position $position): self
     {
-        if (!$this->workingHours->contains($workingHour)) {
-            $this->workingHours[] = $workingHour;
-            $workingHour->setEmployee($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWorkingHour(WorkingHours $workingHour): self
-    {
-        if ($this->workingHours->contains($workingHour)) {
-            $this->workingHours->removeElement($workingHour);
-            // set the owning side to null (unless already changed)
-            if ($workingHour->getEmployee() === $this) {
-                $workingHour->setEmployee(null);
-            }
-        }
+        $this->position = $position;
 
         return $this;
     }
